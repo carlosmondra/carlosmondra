@@ -23,7 +23,7 @@ I'm Carlos, a full-stack developer at [OpenReview](https://openreview.net/about)
 
 
 ## :nerd_face: GitHub Stats
-<a href="https://github.com/braydoncoyer">
+<a href="https://github.com/carlosmondra">
 <img align="center" src="https://github-readme-stats.vercel.app/api?username=carlosmondra&count_private=true&show_icons=true&&theme=dark&custom_title=Carlos's%20Github%20Stats" />
 </a>
 
