@@ -5,7 +5,7 @@
 
 Hey there :wave:
 
-I'm Carlos, a full-stack developer at [OpenReview](https://openreview.net/about) that believes that there is no problem that cannot be solved with code.
+I'm Carlos, a full-stack developer at [OpenReview](https://openreview.net/about) from the University of Massachusetts, Amherst.
 
 ## :sunglasses: Skills:
 
