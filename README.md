@@ -1,11 +1,17 @@
 [![Carlos's GitHub Banner](./assets/GitHubHeader.png)](https://www.linkedin.com/in/carlosmondragonchapa/)
 
-[![Twitter Badge](https://img.shields.io/badge/Twitter-Profile-informational?style=flat&logo=twitter&logoColor=white&color=1CA2F1)](https://twitter.com/Carlos_Mondra91)
+[![X Badge](https://img.shields.io/badge/X-Profile-informational?style=flat&logo=x&logoColor=white&color=000000)](https://x.com/Carlos_Mondra91)
 [![LinkedIn Badge](https://img.shields.io/badge/LinkedIn-Profile-informational?style=flat&logo=linkedin&logoColor=white&color=0D76A8)](https://www.linkedin.com/in/carlosmondragonchapa/)
 
 Hey there :wave:
 
-I'm Carlos, a full-stack developer at [OpenReview](https://openreview.net/about) from the University of Massachusetts, Amherst.
+I'm Carlos, a backend engineer at [OpenReview](https://openreview.net/about), the open platform for scientific peer review used by venues like ICLR and NeurIPS. UMass Amherst alum.
+
+## :hammer_and_wrench: What I work on
+- The OpenReview API: Node.js, MongoDB, Elasticsearch, Redis
+- Performance and query tuning at production scale
+- Security hardening and auth
+- CI and test infrastructure
 
 ## :sunglasses: Skills:
 
