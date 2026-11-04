@@ -20,10 +20,8 @@ async function rejection(promise) {
   assert.fail('expected a rejection');
 }
 
-test('QUERY never selects repository identity', () => {
-  const compact = QUERY.replace(/\s+/g, '');
-  const afterRepository = compact.slice(compact.indexOf('repository{') + 'repository{'.length);
-  assert.ok(afterRepository.startsWith('languages('));
+test('QUERY selects no repository data at all', () => {
+  assert.doesNotMatch(QUERY, /[Rr]epositor/);
   assert.doesNotMatch(QUERY, /nameWithOwner|\burl\b|\bowner\b|\bid\b/);
 });
 

@@ -10,10 +10,6 @@ const FONT = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, s
 const CHART_HEIGHT = 70;
 const BAR_GAP = 4;
 const AXIS_LABEL_INDEXES = [0, 3, 6, 9, 11];
-const LEGEND_FONT_SIZE = 12;
-const MAX_LANGUAGE_NAME = 11;
-
-const truncate = (name) => (name.length > MAX_LANGUAGE_NAME ? `${name.slice(0, MAX_LANGUAGE_NAME - 1)}…` : name);
 
 const formatNumber = new Intl.NumberFormat('en-US').format;
 
@@ -59,30 +55,7 @@ export function renderCard(card, theme) {
     text(PAD + i * (barWidth + BAR_GAP) + barWidth / 2, chartBottom + 16, card.monthLabels[i], { size: 10.5, anchor: 'middle' });
   }
 
-  let y = chartBottom + 36;
-  if (card.languages.length === 0) {
-    text(PAD, y + 8, 'No language data');
-    y += 24;
-  } else {
-    parts.push(`<clipPath id="lang-bar"><rect x="${PAD}" y="${y}" width="${INNER}" height="8" rx="4"/></clipPath>`);
-    parts.push('<g clip-path="url(#lang-bar)">');
-    let x = PAD;
-    for (const lang of card.languages) {
-      const width = (lang.percent / 100) * INNER;
-      parts.push(`<rect class="lang" x="${round(x)}" y="${y}" width="${round(width)}" height="8" fill="${escapeXml(lang.color)}"/>`);
-      x += width;
-    }
-    parts.push('</g>');
-
-    y += 30;
-    card.languages.forEach((lang, i) => {
-      const x = PAD + i * column;
-      parts.push(`<circle cx="${round(x + 4)}" cy="${y - 4}" r="4" fill="${escapeXml(lang.color)}"/>`);
-      text(x + 14, y, `${truncate(lang.name)} ${lang.percent}%`, { size: LEGEND_FONT_SIZE });
-    });
-    y += 12;
-  }
-
+  let y = chartBottom + 26;
   y += 18;
   text(WIDTH - PAD, y, `Includes private contributions · Updated ${card.updated}`, { size: 10.5, anchor: 'end' });
   const height = y + 16;

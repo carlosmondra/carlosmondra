@@ -8,13 +8,6 @@ query($login: String!, $from: DateTime!, $to: DateTime!) {
       totalIssueContributions
       restrictedContributionsCount
       contributionCalendar { weeks { contributionDays { date contributionCount } } }
-      commitContributionsByRepository(maxRepositories: 100) {
-        contributions { totalCount }
-        repository {
-          languages(first: 20, orderBy: { field: SIZE, direction: DESC }) {
-            totalSize
-            edges { size node { name color } } } }
-      }
     }
   }
 }`;
