@@ -29,5 +29,8 @@ I'm Carlos, a backend engineer at [OpenReview](https://openreview.net/about), th
 
 
 ## :nerd_face: GitHub Stats
-<img src="./github-metrics.svg" alt="Carlos's GitHub metrics" />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/stats-card-dark.svg">
+  <img alt="Carlos's last 12 months on GitHub" src="./assets/stats-card-light.svg">
+</picture>
 

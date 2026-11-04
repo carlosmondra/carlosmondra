@@ -1,0 +1,40 @@
+# Regenerates assets/stats-card-{light,dark}.svg from GitHub's GraphQL API.
+#
+# Token rotation: STATS_TOKEN is a *classic* personal access token with ONLY the
+# `read:user` scope (https://github.com/settings/tokens/new). That scope is what
+# makes private contributions count; it grants no write access to anything.
+# When it expires the run fails and the card keeps its last "Updated <date>".
+# Replace it with: gh secret set STATS_TOKEN -R carlosmondra/carlosmondra
+name: Stats card
+
+on:
+  schedule:
+    - cron: "23 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency: stats-card
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - run: node --test 'stats/test/*.test.mjs'
+      - run: node stats/main.mjs
+        env:
+          STATS_TOKEN: ${{ secrets.STATS_TOKEN }}
+      - name: Commit card if it changed
+        run: |
+          if [ -n "$(git status --porcelain assets/)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add assets/stats-card-light.svg assets/stats-card-dark.svg
+            git commit -m "Update stats card"
+            git push
+          fi
