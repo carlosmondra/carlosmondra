@@ -29,7 +29,5 @@ I'm Carlos, a backend engineer at [OpenReview](https://openreview.net/about), th
 
 
 ## :nerd_face: GitHub Stats
-<a href="https://github.com/carlosmondra">
-<img align="center" src="https://github-readme-stats.vercel.app/api?username=carlosmondra&count_private=true&show_icons=true&&theme=dark&custom_title=Carlos's%20Github%20Stats" />
-</a>
+<img src="./github-metrics.svg" alt="Carlos's GitHub metrics" />
 
