@@ -33,3 +33,35 @@ test('restricted contributions fail loudly', () => {
   collection.restrictedContributionsCount = 3;
   assert.throws(() => summarize(collection, window), /restricted contributions present/);
 });
+
+const malformed = (mutate) => {
+  const collection = fixture();
+  mutate(collection);
+  return () => summarize(collection, window);
+};
+
+test('malformed responses fail instead of rendering wrong numbers', () => {
+  const cases = {
+    'missing total': (c) => delete c.totalCommitContributions,
+    'null total': (c) => (c.totalPullRequestContributions = null),
+    'negative total': (c) => (c.totalIssueContributions = -1),
+    'fractional total': (c) => (c.totalPullRequestReviewContributions = 1.5),
+    'missing restricted count': (c) => delete c.restrictedContributionsCount,
+    'missing calendar': (c) => (c.contributionCalendar = null),
+    'empty weeks': (c) => (c.contributionCalendar.weeks = []),
+    'non-numeric day count': (c) => (c.contributionCalendar.weeks[0].contributionDays[0].contributionCount = '3'),
+    'bad day date': (c) => (c.contributionCalendar.weeks[0].contributionDays[0].date = 'Dec 1'),
+    'empty chart with nonzero totals': (c) => c.contributionCalendar.weeks.forEach((w) => w.contributionDays.forEach((d) => (d.contributionCount = 0))),
+  };
+  for (const [name, mutate] of Object.entries(cases)) {
+    assert.throws(malformed(mutate), /malformed response/, name);
+  }
+});
+
+test('an all-quiet year is valid', () => {
+  const card = malformed((c) => {
+    c.totalCommitContributions = c.totalPullRequestContributions = c.totalPullRequestReviewContributions = c.totalIssueContributions = 0;
+    c.contributionCalendar.weeks.forEach((w) => w.contributionDays.forEach((d) => (d.contributionCount = 0)));
+  })();
+  assert.deepEqual(card.monthly, new Array(12).fill(0));
+});

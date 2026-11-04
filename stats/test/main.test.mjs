@@ -66,10 +66,27 @@ test('restricted contributions -> 1, no writes, fixed message', async () => {
   assert.deepEqual(h.logs, ['Data check failed: restricted contributions present']);
 });
 
-test('unexpected failure never leaks its message', async () => {
-  const broken = { ...collection, contributionCalendar: null };
+test('a calendar with null days is a malformed response', async () => {
+  const broken = { ...collection, contributionCalendar: { weeks: [{ contributionDays: null }] } };
   const h = harness({ fetchImpl: async () => new Response(JSON.stringify({ data: { user: { contributionsCollection: broken } } }), { status: 200 }) });
   assert.equal(await run(h.options), 1);
   assert.equal(h.writes.length, 0);
+  assert.deepEqual(h.logs, ['Data check failed: malformed response']);
+});
+
+test('malformed response -> 1, no writes, fixed message', async () => {
+  const broken = { ...collection, totalCommitContributions: null };
+  const h = harness({ fetchImpl: async () => new Response(JSON.stringify({ data: { user: { contributionsCollection: broken } } }), { status: 200 }) });
+  assert.equal(await run(h.options), 1);
+  assert.equal(h.writes.length, 0);
+  assert.deepEqual(h.logs, ['Data check failed: malformed response']);
+});
+
+test('unexpected failure never leaks its message', async () => {
+  const h = harness();
+  h.options.writeFile = async () => {
+    throw new Error('EACCES openreview/private-repo');
+  };
+  assert.equal(await run(h.options), 1);
   assert.deepEqual(h.logs, ['Unexpected failure']);
 });

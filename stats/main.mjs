@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { computeWindow } from './window.mjs';
 import { fetchContributions, StatsFetchError } from './fetch.mjs';
-import { summarize } from './summarize.mjs';
+import { DataCheckError, summarize } from './summarize.mjs';
 import { renderCard } from './render.mjs';
 
 const LOGIN = 'carlosmondra';
@@ -17,20 +17,19 @@ export async function run({ env, now = new Date(), fetchImpl = fetch, writeFile,
     return 1;
   }
 
-  let svgs;
   try {
     const window = computeWindow(now);
     const collection = await fetchContributions({ token, login: LOGIN, from: window.from, to: window.to, fetchImpl });
     const card = summarize(collection, window);
-    svgs = THEMES.map((theme) => [join(outDir, `stats-card-${theme}.svg`), renderCard(card, theme)]);
+    const svgs = THEMES.map((theme) => [join(outDir, `stats-card-${theme}.svg`), renderCard(card, theme)]);
+    for (const [path, svg] of svgs) await writeFile(path, svg);
   } catch (err) {
     if (err instanceof StatsFetchError) logError(err.message);
-    else if (err?.message === 'restricted contributions present') logError('Data check failed: restricted contributions present');
+    else if (err instanceof DataCheckError) logError(`Data check failed: ${err.message}`);
     else logError('Unexpected failure');
     return 1;
   }
 
-  for (const [path, svg] of svgs) await writeFile(path, svg);
   log('Stats card updated');
   return 0;
 }

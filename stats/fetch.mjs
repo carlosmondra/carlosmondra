@@ -22,6 +22,7 @@ export class StatsFetchError extends Error {
 }
 
 const SAFE_DETAIL = /^[A-Z0-9_]{1,40}$/;
+const REQUEST_TIMEOUT_MS = 30_000;
 
 export async function fetchContributions({ token, login, from, to, fetchImpl = fetch }) {
   let response;
@@ -30,6 +31,7 @@ export async function fetchContributions({ token, login, from, to, fetchImpl = f
       method: 'POST',
       headers: { Authorization: `bearer ${token}`, 'Content-Type': 'application/json', 'User-Agent': 'carlosmondra-stats-card' },
       body: JSON.stringify({ query: QUERY, variables: { login, from: from.toISOString(), to: to.toISOString() } }),
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     });
   } catch {
     throw new StatsFetchError('network');

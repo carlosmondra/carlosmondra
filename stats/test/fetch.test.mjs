@@ -41,6 +41,17 @@ test('sends bearer token and ISO variables', async () => {
     to: '2026-11-04T17:00:00.000Z',
   });
   assert.deepEqual(collection, { totalCommitContributions: 1 });
+  assert.ok(captured.init.signal instanceof AbortSignal);
+});
+
+test('a request that times out -> kind network', async () => {
+  const fetchImpl = async (url, init) => {
+    init.signal.throwIfAborted();
+    throw new DOMException('openreview/private-repo timed out', 'TimeoutError');
+  };
+  const err = await rejection(fetchContributions({ ...args, fetchImpl }));
+  assert.equal(err.kind, 'network');
+  assert.ok(!err.message.includes('private-repo'));
 });
 
 test('401 -> StatsFetchError kind http detail 401', async () => {
