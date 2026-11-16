@@ -31,13 +31,13 @@
 <rect x="353" y="132" width="33" height="70" rx="2" fill="#151b23"/>
 <rect class="bar" x="353" y="132" width="33" height="70" rx="2" fill="#3fb950"/>
 <rect x="390" y="132" width="33" height="70" rx="2" fill="#151b23"/>
-<rect class="bar" x="390" y="158.32" width="33" height="43.68" rx="2" fill="#3fb950"/>
+<rect class="bar" x="390" y="158.5" width="33" height="43.5" rx="2" fill="#3fb950"/>
 <rect x="427" y="132" width="33" height="70" rx="2" fill="#151b23"/>
-<rect class="bar" x="427" y="189.57" width="33" height="12.43" rx="2" fill="#3fb950"/>
+<rect class="bar" x="427" y="189.39" width="33" height="12.61" rx="2" fill="#3fb950"/>
 <text x="36.5" y="218" font-size="10.5" fill="#9198a1" text-anchor="middle">Dec</text>
 <text x="147.5" y="218" font-size="10.5" fill="#9198a1" text-anchor="middle">Mar</text>
 <text x="258.5" y="218" font-size="10.5" fill="#9198a1" text-anchor="middle">Jun</text>
 <text x="369.5" y="218" font-size="10.5" fill="#9198a1" text-anchor="middle">Sep</text>
 <text x="443.5" y="218" font-size="10.5" fill="#9198a1" text-anchor="middle">Nov</text>
-<text x="460" y="246" font-size="10.5" fill="#9198a1" text-anchor="end">Includes private contributions · Updated 2026-11-15</text>
+<text x="460" y="246" font-size="10.5" fill="#9198a1" text-anchor="end">Includes private contributions · Updated 2026-11-16</text>
 </svg>
